@@ -1,0 +1,34 @@
+{
+  "format_version": 1,
+  "contract_version": "1.1",
+  "decision_labels": [
+    "HOLD",
+    "REVIEW",
+    "RELEASE"
+  ],
+  "decision_logic": "rule fires -> HOLD; else score >= threshold -> REVIEW; else RELEASE",
+  "rule": "fire if oldbalanceOrg > 0 and abs(amount - oldbalanceOrg) <= 1.0",
+  "threshold": 0.004457999424415188,
+  "model_features_in_order": [
+    "is_transfer",
+    "amount",
+    "oldbalanceOrg",
+    "oldbalanceDest",
+    "amount_to_old_balance",
+    "amount_exceeds_balance"
+  ],
+  "ratio_formula": "amount_to_old_balance = amount / (oldbalanceOrg + 1.0)",
+  "rounding": {
+    "amount": 2,
+    "oldbalanceOrg": 2,
+    "amount_to_old_balance": 4,
+    "score": 6,
+    "threshold": 6,
+    "system_latency_ms": 3
+  },
+  "slm_system_prompt": "You are a fraud-operations assistant. Write a 2-3 sentence case brief for a human reviewer using ONLY the facts in the JSON evidence provided. Rules: copy numbers exactly as given; do not compute new numbers; do not invent facts; do not decide, approve, block, or recommend an action. If rule_fired is true, say the amount matched the sender's full balance. If amount_exceeds_balance is true, say the amount exceeded the sender's balance and do not describe amount_to_old_balance as a share. 'score' is a model score, not a probability. End by stating the decision label that was already applied, written exactly as given.",
+  "slm_settings": {
+    "temperature": 0.0,
+    "max_tokens": 150
+  }
+}

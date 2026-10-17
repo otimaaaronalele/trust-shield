@@ -1,0 +1,69 @@
+{
+  "_note": "Example replies in contract v1.1 shape. Briefs here are the fallback sentences (no AI connected). system_latency_ms is a placeholder.",
+  "HOLD": {
+    "contract_version": "1.1",
+    "transaction_id": "TX-007926",
+    "decision": "HOLD",
+    "score": 1.0,
+    "threshold": 0.004458,
+    "rule_fired": true,
+    "evidence": {
+      "type": "CASH_OUT",
+      "amount": 1778520.8,
+      "oldbalanceOrg": 1778520.8,
+      "amount_to_old_balance": 1.0,
+      "amount_exceeds_balance": false
+    },
+    "plain_language_brief": "Transaction TX-007926 (CASH_OUT, amount 1778520.80) matched the hold rule: the amount equals the sender's full balance of 1778520.80. Decision applied: HOLD.",
+    "brief_meta": {
+      "source": "template_fallback",
+      "audit_passed": true,
+      "audit_reasons": []
+    },
+    "system_latency_ms": 5.0
+  },
+  "REVIEW": {
+    "contract_version": "1.1",
+    "transaction_id": "TX-011247",
+    "decision": "REVIEW",
+    "score": 0.076673,
+    "threshold": 0.004458,
+    "rule_fired": false,
+    "evidence": {
+      "type": "TRANSFER",
+      "amount": 203286.78,
+      "oldbalanceOrg": 74913.0,
+      "amount_to_old_balance": 2.7136,
+      "amount_exceeds_balance": true
+    },
+    "plain_language_brief": "Transaction TX-011247 (TRANSFER, amount 203286.78) did not match the hold rule. The model score 0.076673 is at or above the review threshold 0.004458. The amount exceeds the sender's balance of 74913.00. Decision applied: REVIEW (queued for human review).",
+    "brief_meta": {
+      "source": "template_fallback",
+      "audit_passed": true,
+      "audit_reasons": []
+    },
+    "system_latency_ms": 5.0
+  },
+  "RELEASE": {
+    "contract_version": "1.1",
+    "transaction_id": "TX-029329",
+    "decision": "RELEASE",
+    "score": 0.001941,
+    "threshold": 0.004458,
+    "rule_fired": false,
+    "evidence": {
+      "type": "CASH_OUT",
+      "amount": 475409.0,
+      "oldbalanceOrg": 186968.0,
+      "amount_to_old_balance": 2.5427,
+      "amount_exceeds_balance": true
+    },
+    "plain_language_brief": "Transaction TX-029329 (CASH_OUT, amount 475409.00) did not match the hold rule. The model score 0.001941 is below the review threshold 0.004458. The amount exceeds the sender's balance of 186968.00. Decision applied: RELEASE.",
+    "brief_meta": {
+      "source": "template_fallback",
+      "audit_passed": true,
+      "audit_reasons": []
+    },
+    "system_latency_ms": 5.0
+  }
+}
