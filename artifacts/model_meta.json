@@ -24,30 +24,5 @@
     "precision": 0.885,
     "FPR": 0.00433,
     "F1": 0.939
-  },
-  "rule": "fire if oldbalanceOrg > 0 and abs(amount - oldbalanceOrg) <= 1.0",
-  "decision_logic": "rule fires -> HOLD; else score >= threshold -> REVIEW; else RELEASE",
-  "tier_results_test": [
-    {
-      "tier": "Tier 1: rule (auto-hold)",
-      "holds": 1596,
-      "true_fraud": 1596,
-      "honest_held": 0,
-      "precision": 1.0
-    },
-    {
-      "tier": "Tier 2: model-only (review queue)",
-      "holds": 273,
-      "true_fraud": 58,
-      "honest_held": 215,
-      "precision": 0.2125
-    },
-    {
-      "tier": "Combined: rule OR model",
-      "holds": 1869,
-      "true_fraud": 1654,
-      "honest_held": 215,
-      "precision": 0.885
-    }
-  ]
+  }
 }

@@ -21,6 +21,4 @@
 
 **Limitations:** PaySim is synthetic and its fraud patterns are simple, so these figures do not represent real-world performance. The test set has 1654 fraud cases, so rates carry sampling uncertainty. Results are from a replay of completed records.
 
-Commit: not in a git repo yet: commit, then rerun this cell    Run date: 2026-10-17
-
-**Two-tier decision (test set):** Tier 1 rule (hold when the amount equals the origin balance): 1,596 holds, 1,596 fraud, 0 honest held. Tier 2 (model score at the chosen threshold, rule did not fire): 273 flagged for human review, 58 fraud, 215 honest (precision 0.2125). Combined: 1,654 of 1,654 fraud found, 215 honest held. The rule's perfect precision reflects how PaySim generates fraud and should not be expected on real data. Counts are at the test set's fraud rate of 3.23%.
+Commit: 8943684    Run date: 2026-10-17
