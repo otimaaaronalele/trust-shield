@@ -1,0 +1,13 @@
+DS1 UPDATE
+Data: 2,770,409 CASH_OUT/TRANSFER rows, 8,213 fraud (0.2965%).
+Fraud by type:
+  CASH_OUT: 4,116 fraud of 2,237,500 rows
+  TRANSFER: 4,097 fraud of 532,909 rows
+Split by time: train/validation/test as in README. Test scored once.
+Threshold: 0.00446 (target FPR 0.50%).
+Test: recall 1.0, precision 0.885, FPR 0.00433, F1 0.939 (TP 1654, FP 215, FN 0, TN 49417).
+Model input fields: type, amount, oldbalanceOrg, oldbalanceDest.
+API derives: is_transfer = 1 if type == 'TRANSFER' else 0; amount_to_old_balance = amount / (oldbalanceOrg + 1.0); amount_exceeds_balance = 1 if amount > oldbalanceOrg else 0.
+Feature order: see artifacts/model_meta.json. Hold = score >= threshold.
+Files for you: artifacts/model.txt, model_meta.json, example_row.json, test_predictions.csv.
+DECISION NEEDED: the abstract says 'ledger discrepancies', but the model cannot use that field. Reword, or say in the video that the demo replays completed records.

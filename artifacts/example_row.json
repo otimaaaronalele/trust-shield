@@ -1,0 +1,11 @@
+{
+  "input": {
+    "is_transfer": 0.0,
+    "amount": 148122.546875,
+    "oldbalanceOrg": 21593.0,
+    "oldbalanceDest": 163734.140625,
+    "amount_to_old_balance": 6.85943078994751,
+    "amount_exceeds_balance": 1.0
+  },
+  "expected_score": 0.001954060951878733
+}

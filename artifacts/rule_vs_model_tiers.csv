@@ -1,0 +1,4 @@
+tier,holds,true_fraud,honest_held,precision
+Tier 1: rule (auto-hold),1596,1596,0,1.0
+Tier 2: model-only (review queue),273,58,215,0.2125
+Combined: rule OR model,1869,1654,215,0.885
