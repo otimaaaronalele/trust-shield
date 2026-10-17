@@ -1,13 +1,20 @@
-DS1 UPDATE
-Data: 2,770,409 CASH_OUT/TRANSFER rows, 8,213 fraud (0.2965%).
-Fraud by type:
-  CASH_OUT: 4,116 fraud of 2,237,500 rows
-  TRANSFER: 4,097 fraud of 532,909 rows
-Split by time: train/validation/test as in README. Test scored once.
-Threshold: 0.00446 (target FPR 0.50%).
-Test: recall 1.0, precision 0.885, FPR 0.00433, F1 0.939 (TP 1654, FP 215, FN 0, TN 49417).
-Model input fields: type, amount, oldbalanceOrg, oldbalanceDest.
-API derives: is_transfer = 1 if type == 'TRANSFER' else 0; amount_to_old_balance = amount / (oldbalanceOrg + 1.0); amount_exceeds_balance = 1 if amount > oldbalanceOrg else 0.
-Feature order: see artifacts/model_meta.json. Hold = score >= threshold.
-Files for you: artifacts/model.txt, model_meta.json, example_row.json, test_predictions.csv.
-DECISION NEEDED: the abstract says 'ledger discrepancies', but the model cannot use that field. Reword, or say in the video that the demo replays completed records.
+DS1 UPDATE (final logic)
+Data and split details: see artifacts/README_model_section.md. Test scored once. Test fraud rate 3.23%.
+
+DECISION LOGIC: rule fires -> HOLD; else score >= 0.00446 -> REVIEW; else RELEASE.
+Rule: oldbalanceOrg > 0 and abs(amount - oldbalanceOrg) <= 1.0.
+Decision strings are exactly: HOLD, REVIEW, RELEASE.
+Model input fields: type (CASH_OUT or TRANSFER only), amount, oldbalanceOrg, oldbalanceDest (all >= 0).
+API derives: is_transfer = 1 if type == 'TRANSFER' else 0; amount_to_old_balance = amount / (oldbalanceOrg + 1.0); amount_exceeds_balance = 1 if amount > oldbalanceOrg else 0. Use float32.
+Feature order and threshold: read from artifacts/model_meta.json, never hardcode.
+
+TEST RESULTS (synthetic replay, not live accuracy):
+  Tier 1 rule: 1,596 holds, 1,596 fraud, 0 honest held.
+  Tier 2 model-only review queue: 273 flagged, 58 fraud, 215 honest.
+  Combined: 1,654 of 1,654 fraud found, 215 honest held.
+  Model alone at threshold: recall 1.0, precision 0.885, FPR 0.00433, F1 0.939.
+
+FOR DS2: explain using only the rule and these facts: amount, sender balance, ratio, exceeds balance, drains account, score. Never change the decision.
+FOR DA1: label all metrics 'synthetic test replay'. y_true is replay ground truth, show it only as 'actual outcome'.
+
+Files: artifacts/model.txt, model_meta.json, contract.json, example_row.json, test_predictions.csv, sample_for_ui.csv, rule_vs_model_tiers.csv.

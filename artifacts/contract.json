@@ -1,0 +1,27 @@
+{
+  "inputs": {
+    "type": "CASH_OUT or TRANSFER only",
+    "amount": ">=0",
+    "oldbalanceOrg": ">=0",
+    "oldbalanceDest": ">=0"
+  },
+  "outputs": [
+    "score",
+    "threshold",
+    "rule_fired",
+    "decision"
+  ],
+  "decisions": [
+    "HOLD",
+    "REVIEW",
+    "RELEASE"
+  ],
+  "logic": "rule fires -> HOLD; else score >= threshold -> REVIEW; else RELEASE",
+  "rule": "oldbalanceOrg > 0 and abs(amount - oldbalanceOrg) <= 1.0",
+  "derived_features": {
+    "is_transfer": "1 if type == 'TRANSFER' else 0",
+    "amount_to_old_balance": "amount / (oldbalanceOrg + 1.0)",
+    "amount_exceeds_balance": "1 if amount > oldbalanceOrg else 0"
+  },
+  "note": "y_true in sample_for_ui.csv is replay ground truth, not available live"
+}
