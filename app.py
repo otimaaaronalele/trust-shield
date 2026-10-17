@@ -34,8 +34,8 @@ if "history" not in st.session_state:
 hist = st.session_state.get("history", [])
 k1, k2, k3, k4 = st.columns(4)
 k1.metric("Checks run", len(hist))
-k2.metric("Intercepted", sum(h["routing"] == "HARD_INTERCEPT_ESCROW" for h in hist))
-k3.metric("Settled", sum(h["routing"] == "SETTLE_IMMEDIATELY" for h in hist))
+k2.metric("Held / review", sum(h["routing"] in ("HARD_INTERCEPT_ESCROW", "HOLD", "REVIEW") for h in hist))
+k3.metric("Released", sum(h["routing"] in ("SETTLE_IMMEDIATELY", "RELEASE") for h in hist))
 k4.metric("Avg round trip", f"{sum(h['round_trip_ms'] for h in hist)/len(hist):.1f} ms" if hist else "n/a")
 st.divider()
 
